@@ -32,3 +32,22 @@ def read_cookbook(file_path):
             file.readline()
     
     return cook_book
+
+
+# Ф-ция принимает список блюд, кол-во персон, кулинарную книгу. 
+# Рассчитывает общее количество ингредиентов для приготовляемых блюд
+def get_shop_list_by_dishes(dishes, person_count, cook_book):
+    shop_list = {}
+    
+    for dish in dishes:
+        for ingredient in cook_book[dish]:
+            ingredient_name = ingredient['ingredient_name']
+            measure = ingredient['measure']
+            quantity = ingredient['quantity'] * person_count
+            
+            if ingredient_name in shop_list:
+                shop_list[ingredient_name]['quantity'] += quantity
+            else:
+                shop_list[ingredient_name] = {'measure': measure, 'quantity': quantity}
+    
+    return shop_list
